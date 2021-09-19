@@ -7,8 +7,9 @@ const loginUser = async (req, res, next) => {
     const { username, password } = req.body;
 
     // Get Authenticated User from User Service
-    const user = await userService.authenticateUser(username, password);
-    if (user == null) {
+    const result = await userService.authenticateUser(username, password);
+    const { authenticated, user } = result;
+    if (!authenticated || user == null) {
       L.info(`Login failed - ${username}`);
       res.status(401).send('unauthorized');
       return;
