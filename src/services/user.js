@@ -1,15 +1,17 @@
 const axios = require('axios');
+const authenticator = require('./authenticator');
 
-const userServiceHost = process.env.USER_SERVICE_HOST;
+const userServiceAuthenticationUrl = process.env.USER_SERVICE_AUTHENTICATION_URL;
 
 const getServiceToken = async () => Promise.resolve("K-AuthN-Service");
 
 const getConfig = async () => {
   try {
-    const serviceToken = await getServiceToken();
+    const tokenResult = await authenticator.generateSelfToken();
+    const { accessToken } = tokenResult;
     const config = {
       headers: {
-        "Authorization": `Bearer ${serviceToken}`,
+        "Authorization": `Bearer ${accessToken}`,
       },
     };
 
@@ -21,10 +23,11 @@ const getConfig = async () => {
 
 const authenticateUser = async (username, password) => {
   try {
-    const url = `${userServiceHost}/users/authenticate`;
+    const url = userServiceAuthenticationUrl;
     const body = { username, password };
+    const config = await getConfig();
 
-    const response = await axios.post(url, body);
+    const response = await axios.post(url, body, config);
     const { data } = response;
     return Promise.resolve(data);
   } catch (error) {

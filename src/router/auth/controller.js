@@ -1,6 +1,7 @@
 const { L } = require('../../services/logger')('Auth Router');
 const userService = require('../../services/user.js');
 const jwtService = require('../../services/jwt');
+const authenticator = require('../../services/authenticator');
 
 const loginUser = async (req, res, next) => {
   try {
@@ -16,11 +17,8 @@ const loginUser = async (req, res, next) => {
     }
 
     // Create Access Token
-    const accessTokenPayload = {
-      sub: user.id,
-      typ: 'user',
-    };
-    const accessToken = await jwtService.encode(accessTokenPayload);
+    const tokenResult = await authenticator.generateUserToken(user.id);
+    const { accessToken, expiresIn }  = tokenResult;
 
     // TODO: Create Refresh Token
 
@@ -28,7 +26,7 @@ const loginUser = async (req, res, next) => {
     res.json({
       "access_token": accessToken,
       "token_type": "bearer",
-      "expires_in": jwtService.getExpiry(),
+      "expires_in": expiresIn,
       "refresh_token": null,
     });
   } catch (error) {
