@@ -9,7 +9,9 @@
     "undomigrate": "sequelize-cli db:migrate:undo",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": ["taby"],
+  "keywords": [
+    "taby"
+  ],
   "author": "Yee Hui Poh <yhpoh91@gmail.com>",
   "license": "ISC",
   "dependencies": {
@@ -26,6 +28,7 @@
     "express-validation": "^1.0.2",
     "helmet": "^3.15.1",
     "joi": "^14.3.1",
+    "jsonwebtoken": "^8.5.1",
     "log4js": "^6.3.0",
     "pg": "^7.12.1",
     "pg-hstore": "^2.3.3",

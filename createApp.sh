@@ -1,5 +1,5 @@
 APP_NAME="kopitech-authenticator"
-APP_PORT=8080
+APP_PORT=8084
 APP_IMAGE=yhpoh91/kopitech-authenticator
 DOCKER_VOLUME_PATH=/srv/docker/volume
 
