@@ -6,7 +6,7 @@ const controller = require('./controller');
 const router = express.Router({ mergeParams: true });
 
 router.route('/login')
-  .get(
+  .post(
     validate(validator.loginUser),
     controller.loginUser,
   );
