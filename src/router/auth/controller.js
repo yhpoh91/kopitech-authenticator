@@ -41,8 +41,9 @@ const verifyToken = async (req, res, next) => {
     const { accessToken } = req.body;
 
     // Try verifying
+    let payload;
     try {
-      const payload = await jwtService.decode(accessToken, true);
+      payload = await jwtService.decode(accessToken, true);
     } catch (error) {
       // Something wrong with decoding
       L.warn(`Failed to verify token: ${error.message}`);
