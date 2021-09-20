@@ -11,6 +11,12 @@ router.route('/login')
     controller.loginUser,
   );
 
+router.route('/client')
+  .post(
+    validate(validator.loginClient),
+    controller.loginClient,
+  );
+
 router.route('/verify')
   .post(
     validate(validator.verifyToken),

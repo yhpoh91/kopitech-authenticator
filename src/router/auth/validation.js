@@ -9,6 +9,14 @@ module.exports = {
       password: joi.string().required(),
     },
   },
+  loginClient: {
+    query: {},
+    params: {},
+    body: {
+      clientId: joi.string().required(),
+      clientSecret: joi.string().required(),
+    },
+  },
   verifyToken: {
     query: {},
     params: {},

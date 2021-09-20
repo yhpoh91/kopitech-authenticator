@@ -11,7 +11,7 @@ const generateSelfToken = async () => {
     if (currentSelfToken == null || currentSelfTokenExp < now) {
       const accessTokenPayload = {
         sub: 'kopitech-authenticator',
-        typ: 'svc',
+        typ: 'client',
       };
 
       // Generate New Token
@@ -46,8 +46,27 @@ const generateUserToken = async (userId) => {
   }
 };
 
+const generateClientToken = async (clientId) => {
+  try {
+    const accessTokenPayload = {
+      sub: clientId,
+      typ: 'client',
+    };
+    const accessToken = await jwtService.encode(accessTokenPayload);
+    const expiresIn = jwtService.getExpiry();
+
+    return Promise.resolve({
+      accessToken,
+      expiresIn,
+    });
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
 
 module.exports = {
   generateSelfToken,
   generateUserToken,
+  generateClientToken,
 };
