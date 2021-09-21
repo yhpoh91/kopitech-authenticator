@@ -2,6 +2,7 @@ const express = require('express');
 const validate = require('express-validation');
 const validator = require('./validation');
 const controller = require('./controller');
+const authenticator = require('../../services/authenticator');
 
 const router = express.Router({ mergeParams: true });
 
@@ -19,6 +20,7 @@ router.route('/client')
 
 router.route('/verify')
   .post(
+    authenticator.authenticate,
     validate(validator.verifyToken),
     controller.verifyToken,
   );
