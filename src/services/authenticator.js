@@ -1,3 +1,4 @@
+const { L } = require('../services/logger')('Authenticator');
 const jwtService = require('../services/jwt');
 
 const authenticationEnabled = (process.env.AUTHENTICATION_ENABLED || 'true').toLowerCase() === 'true';
