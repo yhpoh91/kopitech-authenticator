@@ -68,6 +68,24 @@ const generateClientToken = async (clientId) => {
   }
 };
 
+const validateToken = async (accessToken) => {
+  try {
+    // Try verifying
+    let payload;
+    try {
+      payload = await jwtService.decode(accessToken, true);
+    } catch (error) {
+      // Something wrong with decoding
+      L.warn(`Failed to verify token: ${error.message}`);
+      return Promise.resolve({ ok: false });
+    }
+
+    return Promise.resolve({ ok: true, payload });
+  } catch (error) {
+    return Promise.reject(error);
+  }
+}
+
 const authenticate = async (req, res, next) => {
   try {
     let token;
@@ -123,4 +141,5 @@ module.exports = {
   generateClientToken,
 
   authenticate,
+  validateToken,
 };
