@@ -3,7 +3,7 @@ const authenticator = require('./authenticator');
 
 const clientServiceAuthenticationUrl = process.env.CLIENT_SERVICE_AUTHENTICATION_URL;
 
-const getServiceToken = async () => Promise.resolve("K-AuthN-Service");
+const getServiceToken = async () => authenticator.generateSelfToken();
 
 const getConfig = async () => {
   try {
